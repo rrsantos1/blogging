@@ -30,4 +30,5 @@ jobs:
           --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} \
           --build-arg DATABASE_URL=postgresql://postgres:19790109@db:5432/blogging \
           --platform linux/amd64 \
-          -t rrsnaza/blogging:latest --push .
+          -t rrsnaza/blogging:latest . \
+          --push 
