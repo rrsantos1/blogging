@@ -30,6 +30,7 @@ jobs:
           docker buildx build \
             --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} \
             --build-arg DATABASE_URL=postgresql://postgres:19790109@db:5432/blogging \
+            --build-arg DATABASE_HOST=blogging-postgres-1 \
             --platform linux/amd64 \
             -t rrsnaza/blogging:latest \
             --push .
