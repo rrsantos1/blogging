@@ -6,9 +6,7 @@ services:
       volumes:
         - postgres_data:/var/lib/postgresql/data
       environment:
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: 19790109
-        POSTGRES_DB: blogging       
+        DATABASE_URL=postgresql://postgres:19790109@db:5432/blogging
       networks:
         - mynetwork
   app:
@@ -23,6 +21,7 @@ services:
       DATABASE_PORT: 5432
     ports:
        - "3000:3000"
+    entrypoint: ["dockerize", "-wait", "tcp://db:5432", "-timeout", "30s", "./start.sh"]
     depends_on:
       - postgres
     networks:
