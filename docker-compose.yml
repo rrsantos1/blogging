@@ -6,7 +6,7 @@ services:
       volumes:
         - postgres_data:/var/lib/postgresql/data
       environment:
-        DATABASE_URL=postgresql://db:19790109@db:5432/blogging
+        DATABASE_URL=postgresql://postgres:19790109@db:5432/blogging
       networks:
         - mynetwork
   app:
