@@ -1,0 +1,42 @@
+{
+  "name": "blogging",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "tsx watch src/server.ts",
+    "start": "node build/server.js",
+    "build": "tsup src --out-dir build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "Projeto de blog para o Tech Challenge da FIAP",
+  "dependencies": {
+    "@fastify/jwt": "9.0.1",
+    "bcryptjs": "2.4.3",
+    "blogging": "file:",
+    "dotenv": "16.4.5",
+    "fastify": "5.0.0",
+    "pg": "8.13.0",
+    "reflect-metadata": "0.2.2",
+    "typeorm": "0.3.20",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "2.4.6",
+    "@types/node": "22.5.5",
+    "@types/pg": "8.11.10",
+    "@typescript-eslint/eslint-plugin": "8.6.0",
+    "@typescript-eslint/parser": "8.6.0",
+    "eslint": "9.11.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-config-standart": "0.2.0",
+    "eslint-plugin-n": "17.10.3",
+    "eslint-plugin-prettier": "5.2.1",
+    "eslint-plugin-promise": "7.1.0",
+    "prettier": "3.3.3",
+    "tsup": "8.3.0",
+    "tsx": "4.19.1",
+    "typescript": "5.6.2"
+  }
+}
