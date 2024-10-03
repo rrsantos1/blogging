@@ -33,4 +33,6 @@ export async function update(
         category_id,
         update_date
     })
+
+    return reply.status(200).send(blog)
 }

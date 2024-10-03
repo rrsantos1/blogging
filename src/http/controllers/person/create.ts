@@ -7,7 +7,7 @@ import { z } from 'zod'
 export async function create(request: FastifyRequest, reply: FastifyReply) {
 
     const registerBodySchema = z.object({
-        cpf: z.string(),
+        perfil: z.string(),
         name: z.string(),
         birth: z.coerce.date(),
         email: z.string().email(),
@@ -15,11 +15,11 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
         password: z.string(),   
     })
 
-    const { cpf, name, birth, email, username, password } = registerBodySchema.parse(request.body)
+    const { perfil, name, birth, email, username, password } = registerBodySchema.parse(request.body)
 
     const hashedPassword = await hash(password, 8)
 
-    const personWithHashedPassword = { cpf, name, birth, email, username, password: hashedPassword }
+    const personWithHashedPassword = { perfil, name, birth, email, username, password: hashedPassword }
 
     const createPersonUseCase = makeCreatePersonUseCase()
 

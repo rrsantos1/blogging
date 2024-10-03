@@ -1,6 +1,6 @@
 export interface IPerson {
     id?: number
-    cpf?: string
+    perfil: string
     name: string
     birth?: Date
     email?: string

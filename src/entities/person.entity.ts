@@ -12,10 +12,10 @@ export class Person implements IPerson {
     id?: number | undefined
     
     @Column({
-        name: 'cpf',
+        name: 'perfil',
         type: 'varchar'
     })
-    cpf?: string
+    perfil: string
 
     @Column({
         name: 'name',
