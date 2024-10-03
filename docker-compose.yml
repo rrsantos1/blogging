@@ -17,7 +17,11 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      DATABASE_URL: postgresql://postgres:19790109@db:5432/blogging
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: 19790109
+      DATABASE_HOST: db  # Nome do serviço do banco de dados
+      DATABASE_NAME: blogging
+      DATABASE_PORT: 5432
     ports:
        - "3000:3000"
     depends_on:
