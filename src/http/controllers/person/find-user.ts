@@ -13,5 +13,5 @@ export async function findUser(request: FastifyRequest, reply: FastifyReply) {
 
     const person = await findWithPersonIdUseCase.handler(id)
 
-    return reply.status(200).send({id: person?.id, name: person?.name, username: person?.username})    
+    return reply.status(200).send({id: person?.id, perfil: person?.perfil, name: person?.name, username: person?.username})    
 }      

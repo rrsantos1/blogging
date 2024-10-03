@@ -9,10 +9,15 @@ export class PersonRepository implements IPersonRepository {
 
     constructor() {
         this.repository = appDataSource.getRepository(Person)
-    }    
+    }
+    findByUsername(username: string): Promise<IPerson | undefined> {
+        throw new Error("Method not implemented.")
+    }
+    
     findWithPersonId(id: number): Promise<IPerson | undefined> {
         throw new Error("Method not implemented.")
     }
+
     create(person: IPerson): Promise<IPerson> {
         return this.repository.save(person)
     }

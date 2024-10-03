@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { IPerson } from "./models/person.interface"
 
 @Entity({
@@ -45,5 +45,5 @@ export class Person implements IPerson {
         name: 'password',
         type: 'varchar'
     })
-    password?: string        
+    password?: string 
 }
