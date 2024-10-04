@@ -8,6 +8,7 @@ export async function validateJwt(
     const routeFreeList = ['POST-/person', 'POST-/person/signin'];
     const adminRoutePatterns = [
       /^POST-\/posts$/,
+      /^GET-\/posts\/admin$/,
       /^PUT-\/posts\/\d+$/,
       /^DELETE-\/posts\/\d+$/
     ];

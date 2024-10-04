@@ -7,4 +7,5 @@ export interface IBlogRepository {
     create(blog: IBlog): Promise<IBlog>
     update(blog: IBlog): Promise<IBlog>
     delete(id: number): Promise<void>
+    findAllByAdmin(personId: number, page: number, limit: number): Promise<IBlog[] | null>
 }

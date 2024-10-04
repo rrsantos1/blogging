@@ -10,6 +10,12 @@ export class CategoryRepository implements ICategoryRepository {
     constructor() {
         this.repository = appDataSource.getRepository(Category)
     }
+    findAllCategory(page: number, limit: number): Promise<ICategory[] | undefined> {
+        return this.repository.find({            
+            skip: (page - 1) * limit,
+            take: limit
+        })
+    }
 
     create(category: ICategory): Promise<ICategory> {
         return this.repository.save(category)

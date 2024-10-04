@@ -10,6 +10,12 @@ export class PersonRepository implements IPersonRepository {
     constructor() {
         this.repository = appDataSource.getRepository(Person)
     }
+    findAllPerson(page: number, limit: number): Promise<IPerson[] | undefined> {
+        return this.repository.find({            
+            skip: (page - 1) * limit,
+            take: limit
+        })
+    }
     findByUsername(username: string): Promise<IPerson | undefined> {
         throw new Error("Method not implemented.")
     }
@@ -21,4 +27,5 @@ export class PersonRepository implements IPersonRepository {
     create(person: IPerson): Promise<IPerson> {
         return this.repository.save(person)
     }
+    
 }
