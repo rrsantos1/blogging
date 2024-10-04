@@ -29,7 +29,7 @@ export async function signin(
         throw new InvalidCredentialsError()
     }
 
-    const token = await reply.jwtSign({ username })
+    const token = await reply.jwtSign({ username, perfil: person.perfil })
 
     return reply.status(200).send({ token })
 }
