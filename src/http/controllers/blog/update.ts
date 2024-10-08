@@ -1,4 +1,3 @@
-
 import { Category } from "@/entities/category.entity";
 import { Person } from "@/entities/person.entity";
 import { appDataSource } from "@/lib/typeorm/typeorm";
@@ -33,7 +32,10 @@ export async function update(
     const categoryRepository = appDataSource.getRepository(Category);
 
     // Verifica se a pessoa e a categoria existem
-    const person = await personRepository.findOne({ where: { id: person_id } });
+    const person = await personRepository.findOne({ 
+        where: { id: person_id },
+        select: ["id", "name"]
+    });
     if (!person) {
         return reply.code(400).send({ message: "Person not found" });
     }

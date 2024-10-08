@@ -15,7 +15,9 @@ export async function findAllBlog(
 
     const findAllBlogUseCase = makeFindAllBlogUseCase()
 
-    const blog = await findAllBlogUseCase.handler(page, limit)
+    const blog = await findAllBlogUseCase.handler(page, limit, {
+        relations: ["person", "category"]
+    })
 
     return reply.status(200).send(blog)
 }

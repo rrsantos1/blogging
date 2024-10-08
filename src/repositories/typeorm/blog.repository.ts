@@ -39,16 +39,42 @@ export class BlogRepository implements IBlogRepository {
         }
         return null
     }
-    async findAll(page: number, limit: number): Promise<IBlog[]> {
-        return this.repository.find({            
-            skip: (page - 1) * limit,
-            take: limit
-        })
+    async findAll(page: number, limit: number, options?: { relations?: string[] }) {
+        const queryBuilder = this.repository.createQueryBuilder("blog")
+            .leftJoinAndSelect("blog.person", "person")
+            .leftJoinAndSelect("blog.category", "category")
+            .select([
+                "blog.id",
+                "blog.title",
+                "blog.description",
+                "blog.creation_date",
+                "blog.update_date",
+                "person.id",       // Selecionando apenas o id
+                "person.name",     // Selecionando apenas o name
+                "category.id",
+                "category.name"
+            ])
+            .skip((page - 1) * limit)
+            .take(limit);
+
+        return await queryBuilder.getMany();
     }
     async findById(id: number): Promise<IBlog | null> {
-        return this.repository.findOne({            
-            where: { id },
-        })
+        const queryBuilder = this.repository.createQueryBuilder("blog")
+            .leftJoinAndSelect("blog.person", "person")
+            .leftJoinAndSelect("blog.category", "category")
+            .select([
+                "blog.id",
+                "blog.title",
+                "blog.description",
+                "person.id",      // Selecionando apenas o id
+                "person.name",    // Selecionando apenas o name
+                "category.id",    // Selecionando apenas o id
+                "category.name"   // Selecionando apenas o name
+            ])
+            .where("blog.id = :id", { id });
+
+        return await queryBuilder.getOne();
     }
     async create(blog: IBlog): Promise<IBlog> {
         return this.repository.save(blog)
