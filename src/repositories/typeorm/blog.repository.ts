@@ -32,7 +32,7 @@ export class BlogRepository implements IBlogRepository {
         
         if (person && person.perfil === 'admin') {
             return this.repository.find({
-                where: { person_id: personId },
+                where: { person: { id: personId } },
                 skip: (page - 1) * limit,
                 take: limit,
             })

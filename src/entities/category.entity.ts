@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { ICategory } from "./models/category.interface";
+import { Blog } from "./blog.entity";
 
 @Entity({
     name: 'category'
@@ -24,4 +25,8 @@ export class Category implements ICategory {
         default: () => 'CURRENT_TIMESTAMP'
     })
     creation_date?: Date
+
+    // Relacionamento inverso (Uma categoria pode ter muitos blogs)
+    @OneToMany(() => Blog, (blog) => blog.category)
+    blogs: Blog[];
 }

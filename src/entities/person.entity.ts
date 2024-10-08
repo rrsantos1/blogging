@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
 import { IPerson } from "./models/person.interface"
+import { Blog } from "./blog.entity"
 
 @Entity({
     name: 'person'
@@ -45,5 +46,9 @@ export class Person implements IPerson {
         name: 'password',
         type: 'varchar'
     })
-    password?: string 
+    password?: string
+    
+    // Relacionamento inverso (Uma pessoa pode ter muitos blogs)
+    @OneToMany(() => Blog, (blog) => blog.person)
+    blogs: Blog[];
 }

@@ -1,6 +1,9 @@
-import { makeCreateBlogUseCase } from "@/use-cases/factory/make-create-blog-use-case"
-import { FastifyReply, FastifyRequest } from "fastify"
-import { z } from "zod"
+import { appDataSource } from "@/lib/typeorm/typeorm"
+import { Person } from "@/entities/person.entity";
+import { Category } from "@/entities/category.entity";
+import { makeCreateBlogUseCase } from "@/use-cases/factory/make-create-blog-use-case";
+import { FastifyRequest, FastifyReply } from "fastify";
+import { z } from "zod";
 
 export async function create(request: FastifyRequest, reply: FastifyReply) {
     const registerBodySchema = z.object({           
@@ -13,17 +16,33 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     })
 
     const { title, description, person_id, category_id, creation_date, update_date } = registerBodySchema.parse(request.body)
+    
+    // Buscando as entidades Person e Category
+    const personRepository = appDataSource.getRepository(Person);
+    const categoryRepository = appDataSource.getRepository(Category);
 
-    const CreateBlogUseCase = makeCreateBlogUseCase()
+    // Verifica se a pessoa e a categoria existem
+    const person = await personRepository.findOne({ where: { id: person_id } });
+    if (!person) {
+        return reply.code(400).send({ message: "Person not found" });
+    }
+
+    const category = await categoryRepository.findOne({ where: { id: category_id } });
+    if (!category) {
+        return reply.code(400).send({ message: "Category not found" });
+    }
+
+    // Chama o caso de uso passando os objetos Person e Category
+    const CreateBlogUseCase = makeCreateBlogUseCase();
     
     await CreateBlogUseCase.handler({
         title,
         description,
-        person_id,
-        category_id,
+        person,  // Passando a entidade Person
+        category,  // Passando a entidade Category
         creation_date,
         update_date
-    })
+    });
 
-    return reply.code(201).send()
+    return reply.code(201).send();
 }

@@ -1,15 +1,17 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { IBlog } from "./models/blog.interface";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
+import { IBlog } from "./models/blog.interface"
+import { Person } from "./person.entity"  
+import { Category } from "./category.entity"
 
 @Entity({
     name: 'blog'
 })
-
-export class Blog implements IBlog {    
+export class Blog implements IBlog {
+       
     @PrimaryGeneratedColumn('increment', {
         name: 'id',
-      })
-      id?: number | undefined
+    })
+    id?: number | undefined
 
     @Column({
         name: 'title',
@@ -20,20 +22,18 @@ export class Blog implements IBlog {
     @Column({
         name: 'description',
         type: 'varchar',
-      })
-      description: string
-
-    @Column({
-        name: 'category_id',
-        type: 'integer',
     })
-    category_id?: number | undefined
+    description: string
 
-    @Column ({
-        name: 'person_id',
-        type: 'integer'
-    })
-    person_id?: number | undefined  
+    // Relacionamento com a entidade Category (Muitos Blogs para uma Categoria)
+    @ManyToOne(() => Category, { nullable: false, onDelete: 'RESTRICT' })
+    @JoinColumn({ name: 'category_id' })
+    category: Category;
+
+    // Relacionamento com a entidade Person (Muitos Blogs para uma Pessoa)
+    @ManyToOne(() => Person, { nullable: false, onDelete: 'RESTRICT' })
+    @JoinColumn({ name: 'person_id' })
+    person: Person;
 
     @Column({
         name: 'creation_date',
