@@ -67,6 +67,8 @@ export class BlogRepository implements IBlogRepository {
                 "blog.id",
                 "blog.title",
                 "blog.description",
+                "blog.creation_date",
+                "blog.update_date",
                 "person.id",      // Selecionando apenas o id
                 "person.name",    // Selecionando apenas o name
                 "category.id",    // Selecionando apenas o id
