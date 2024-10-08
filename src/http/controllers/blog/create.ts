@@ -9,13 +9,15 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     const registerBodySchema = z.object({           
         title: z.string(),
         description: z.string(),
-        person_id: z.coerce.number(),
         category_id: z.coerce.number(),
         creation_date: z.coerce.date(),
         update_date: z.coerce.date()
     })
 
-    const { title, description, person_id, category_id, creation_date, update_date } = registerBodySchema.parse(request.body)
+    const { title, description, category_id, creation_date, update_date } = registerBodySchema.parse(request.body)
+
+    // Recupera o person_id do token JWT
+    const { person_id } = request.user as { person_id: number }
     
     // Buscando as entidades Person e Category
     const personRepository = appDataSource.getRepository(Person);
